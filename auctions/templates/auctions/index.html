@@ -32,7 +32,10 @@
                 <div class="card-text">
                   {{ auction.content }}
                   <br>
+                  <br>
                   Starting price : <strong>{{ auction.starting_price }} USD.</strong>
+                  <br>
+                  {% if auction.active %}Current{% else %}Final{% endif %} price : {% if auction.current_price is not None %}<strong style="color: green;">{{ auction.current_price }} USD</strong>.{% else %} No bids made on this auction so far.{% endif %}
                   <small class="float-right">
                   Category : <strong>{{ auction.category }}</strong>
                   </small>

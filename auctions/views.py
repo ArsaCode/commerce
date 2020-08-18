@@ -186,6 +186,7 @@ def bid(request, list_id):
                     return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
                 else:
                     data = form.save(commit=False)
+                    auction.current_price = bidamount
                     data.author_id = request.user.id
                     data.auction_id = list_id
                     data.save()
@@ -193,6 +194,7 @@ def bid(request, list_id):
                     return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
             else:
                 data = form.save(commit=False)
+                auction.current_price = bidamount
                 data.author_id = request.user.id
                 data.auction_id = list_id
                 data.save()

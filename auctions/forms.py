@@ -42,7 +42,7 @@ class CreateForm(forms.ModelForm):
                             
     class Meta:
         model = Auction
-        exclude = ["author", "date", "active"]
+        exclude = ["author", "date", "active", "current_price"]
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(label=mark_safe("<strong>Type your comment below</strong>"),
