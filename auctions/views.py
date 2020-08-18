@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import User, Category, Auction, Bid, Comment, Watchlist
 from .forms import CreateForm, CommentForm, BidForm, SearchForm
@@ -122,8 +123,9 @@ def watchlist_add(request, list_id):
                 messages.add_message(request, messages.SUCCESS, 'Successfully added to your watchlist.')
                 return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
             except ObjectDoesNotExist:
-                usrlist = Watchlist(id=request.user.id, owner_id=request.user.id, product=auction)
+                usrlist = Watchlist(id=request.user.id, owner_id=request.user.id)
                 usrlist.save()
+                usrlist.product.add(auction)
                 messages.add_message(request, messages.SUCCESS, 'Successfully added to your watchlist.')
                 return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
         
@@ -190,6 +192,7 @@ def bid(request, list_id):
                     data.author_id = request.user.id
                     data.auction_id = list_id
                     data.save()
+                    auction.save()
                     messages.add_message(request, messages.SUCCESS, "Your bid was successfully placed :)")
                     return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
             else:
@@ -198,6 +201,7 @@ def bid(request, list_id):
                 data.author_id = request.user.id
                 data.auction_id = list_id
                 data.save()
+                auction.save()
                 messages.add_message(request, messages.SUCCESS, "Your bid was successfully placed :)")
                 return HttpResponseRedirect(reverse("auctions:list", args=(list_id,)))
         else:

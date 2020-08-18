@@ -39,7 +39,7 @@
                     <br>
                     Starting price : <strong>{{ auction.starting_price }} USD</strong>
                     <br>
-                    {% if auction.active %}Current{% else %}Final{% endif %} price : {% if highestbid %}<strong style="color: green;">{{ highestbid.amount }} USD</strong> - highest bid made by <strong>{{ highestbid.author }}</strong>.{% else %} No bids made on this auction so far.{% endif %}
+                    {% if auction.active %}Current{% else %}Final{% endif %} price : {% if highestbid %}<strong style="color: green;">{{ highestbid.amount }} USD</strong> - highest bid made by <strong>{{ highestbid.author }}</strong>.{% else %} No bids made on this auction.{% endif %}
                     <small class="float-right">
                         Category : <strong>{{ auction.category }}</strong>
                     </small>
