@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block cardtitle %}
+    Auctions Categories
+{% endblock %}
+
+{% block body %}
+    <h5 class="card-title text-center">Choose one Category to browse :</h5>
+    {% for category in categories %}
+        <div class="my-3">
+            <form action="{% url 'auctions:getcategory' category.id %}">
+                <input style="font-size: 2.5rem;" class="btn btn-primary btn-block" type="submit" value="{{ category.name }}">
+              </form>
+        </div>
+    {% endfor %}
+{% endblock %}
